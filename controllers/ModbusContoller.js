@@ -4,26 +4,46 @@ const ModbusController = {
   async create(req, res) {
     try {
       const { modbus_id, device_id, data_modbus } = req.body;
-      console.log({ modbus_id, device_id, data_modbus });
-      console.log(data_modbus.length);
+
+      // Debugging: Log received input
+      console.log("Received Data:", { modbus_id, device_id, data_modbus });
+      console.log(
+        "Data Modbus Length:",
+        data_modbus ? data_modbus.length : "undefined"
+      );
+
+      // Validate input
       if (
         !modbus_id ||
         !device_id ||
         !Array.isArray(data_modbus) ||
         data_modbus.length !== 50
       ) {
+        console.error("Validation Failed: Invalid input");
         return res.status(400).json({ message: "Invalid input" });
       }
 
+      // Insert into database
       const result = await ModbusModel.insertData(
         modbus_id,
         device_id,
         data_modbus
       );
+
       res.status(201).json({ message: "Data inserted", data: result.rows[0] });
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: error });
+      console.error("❌ Error Occurred:", error);
+
+      // More details about PostgreSQL errors
+      if (error.code) {
+        console.error("PostgreSQL Error Code:", error.code);
+      }
+
+      res.status(500).json({
+        message: "Internal Server Error",
+        error: error.message,
+        details: error,
+      });
     }
   },
 
