@@ -23,7 +23,7 @@ const ModbusController = {
       res.status(201).json({ message: "Data inserted", data: result.rows[0] });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: "Server error" });
+      res.status(500).json({ message: error });
     }
   },
 
@@ -33,7 +33,7 @@ const ModbusController = {
       res.json(result.rows);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: "Server error" });
+      res.status(500).json({ message: error });
     }
   },
 
@@ -47,7 +47,7 @@ const ModbusController = {
       res.json(result.rows[0]);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: "Server error" });
+      res.status(500).json({ message: error });
     }
   },
 };
