@@ -3,18 +3,23 @@ const ModbusModel = require("../models/ModbusModel");
 const ModbusController = {
   async create(req, res) {
     try {
-      const { modbus_id, data_modbus } = req.body;
-      console.log({ modbus_id, data_modbus });
+      const { modbus_id, device_id, data_modbus } = req.body;
+      console.log({ modbus_id, device_id, data_modbus });
       console.log(data_modbus.length);
       if (
         !modbus_id ||
+        !device_id ||
         !Array.isArray(data_modbus) ||
         data_modbus.length !== 50
       ) {
         return res.status(400).json({ message: "Invalid input" });
       }
 
-      const result = await ModbusModel.insertData(modbus_id, data_modbus);
+      const result = await ModbusModel.insertData(
+        modbus_id,
+        device_id,
+        data_modbus
+      );
       res.status(201).json({ message: "Data inserted", data: result.rows[0] });
     } catch (error) {
       console.error(error);
