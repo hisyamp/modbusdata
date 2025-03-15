@@ -17,7 +17,7 @@ const ModbusController = {
         !modbus_id ||
         !device_id ||
         !Array.isArray(data_modbus) ||
-        data_modbus.length !== 50
+        data_modbus.length >= 99
       ) {
         console.error("Validation Failed: Invalid input");
         return res.status(400).json({ message: "Invalid input" });
