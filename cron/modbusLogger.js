@@ -4,7 +4,7 @@ const Modbus = require("../models/ModbusModel");
 const ModbusLog = require("../models/ModbusLogModel");
 const ModbusLogFilter = require("../models/ModbuLogFilterModel");
 
-const modbusLogger = cron.schedule("*/10 * * * * *", async () => {
+const modbusLogger = cron.schedule("*/5 * * * *", async () => {
   console.log("Running Modbus Logger...");
 
   try {
