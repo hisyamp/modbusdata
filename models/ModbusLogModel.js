@@ -1,9 +1,14 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/db");
 
-const Modbus = sequelize.define(
-  "Modbus",
+const ModbusLog = sequelize.define(
+  "ModbusLog",
   {
+    log_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     modbus_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -20,16 +25,15 @@ const Modbus = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    created_at: {
+    logged_at: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
   },
   {
     timestamps: false,
-    tableName: "modbus",
-    indexes: [{ unique: false, fields: ["modbus_id", "modbus_register"] }],
+    tableName: "modbus_log",
   }
 );
 
-module.exports = Modbus;
+module.exports = ModbusLog;

@@ -1,7 +1,6 @@
 const express = require("express");
-const ModbusController = require("../controllers/ModbusContoller");
-
 const router = express.Router();
+const ModbusController = require("../controllers/ModbusContoller");
 
 router.post("/modbus", ModbusController.create);
 router.get("/modbus", ModbusController.getAll);
